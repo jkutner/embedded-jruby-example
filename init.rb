@@ -49,7 +49,7 @@ e = create_jruby_engine do |e, bindings|
 
   code = "Rack::Builder.parse_file('config.ru')[0]"
   begin
-    e.eval(code, bindings).call(env)
+    e.eval(code, bindings) #.call(env)
   rescue => e
     puts "Dead ;)\n\n#{e.message}\n\n\t#{e.backtrace.join("\n\t")}"
   end
