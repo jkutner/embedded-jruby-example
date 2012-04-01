@@ -48,7 +48,7 @@ e = create_jruby_engine do |e, bindings|
 
   code = "begin; Rack::Builder.parse_file('config.ru')[0]; rescue => e; puts e.message; end"
   begin
-    e.eval(code, bindings) #.call(env)
+    e.eval(code, bindings).call({})
 
     puts "code evaled"
   rescue => e
