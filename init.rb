@@ -20,9 +20,6 @@ def create_jruby_engine
   bindings = SimpleBindings.new()
   #bindings.put("RACK_ENV", ENV['RACK_ENV'])
 
-  # app_load_path = File.expand_path('.', File.dirname(__FILE__))
-  # bindings.put("APP_LOAD_PATH", app_load_path)
-
   yield e, bindings
 
   e
@@ -47,9 +44,13 @@ e = create_jruby_engine do |e, bindings|
   eval_file(e, "../boot.rb", bindings)
   load_gems(e, ["rack"])
 
-  code = "Rack::Builder.parse_file('config.ru')[0]"
+  puts 'gems loaded'
+
+  code = "begin; Rack::Builder.parse_file('config.ru')[0]; rescue => e; puts e.message; end"
   begin
     e.eval(code, bindings) #.call(env)
+
+    puts "code evaled"
   rescue => e
     puts "Dead ;)\n\n#{e.message}\n\n\t#{e.backtrace.join("\n\t")}"
   end

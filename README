@@ -1,0 +1,4 @@
+I was running this like:
+
+$ rvm use jruby-1.6.7
+$ ruby init.rb
